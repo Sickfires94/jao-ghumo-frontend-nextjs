@@ -8,7 +8,9 @@ interface Airport {
 
 
 const AirportCard = async () => {
-    const res = await fetch('http://localhost:3000/airports/get/all')
+    const res = await fetch('http://localhost:3000/airports/get/all',
+        { method: 'POST' }
+    )
     const airports: Airport[] = await res.json();
 
     return (
@@ -23,4 +25,4 @@ const AirportCard = async () => {
     )
 }
 
-export default AirportCard 
+export default AirportCard  
