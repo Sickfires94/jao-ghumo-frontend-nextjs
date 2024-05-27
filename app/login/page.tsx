@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from "react";
 import './login.css'
 import login from '../img/login.jpg'
@@ -6,33 +8,61 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { FormEvent } from 'react'
+import { cookies } from 'next/headers'
+import saveCookie from "./components/cookieSave";
+import getCookies from "../components/cookieGet";
+import redirector from "./components/redirector";
+import { getCookie, setCookie } from 'typescript-cookie'
+
+interface login_res {
+    msg: string,
+    token: string,
+    role: string
+}
 
 function Login() {
 
-    // const [formData, setFormData] = useState({
-    //     email: '',
-    //     password: '',
-    //     firstname: '',
-    //     lastname: '',
-    //     role: 'User'
-    // });
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
 
     // const handleChange = (e) => {
     //     setFormData({ ...formData, [e.target.name]: e.target.value });
     // }; 
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
         try {
-            event.preventDefault()
-            const formData = new FormData(event.currentTarget)
-            const response = await fetch('http://localhost:3000/api/submit', {
+            const response = await fetch('http://localhost:3000/auth/login', {
                 method: 'POST',
-                body: formData,
-            })
-            redirect("/");
-        } catch (error) {
-            // Handle login error
-            console.error('Login failed:', error);
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            console.log(response);
+
+            if (!response.ok) {
+                throw new Error(`Login failed with status ${response.status}`);
+            }
+
+            const data = await response.json();
+
+
+            // Handle successful login (e.g., redirect to home page)
+            console.log('Login successful:', data);
+            const token = data.token
+
+            setCookie("token", token);
+
+            console.log("token = " + getCookie("token"))
+            // redirector();
+            console.log("redirected");
+            // ... (redirect or other actions)
+
+        } catch (error: any) {
+            console.log("ERROR??!!!")
+            setErrorMessage(error.message);
         }
     };
 
@@ -40,26 +70,34 @@ function Login() {
     return (
         <div className="container" style={{ justifyContent: "center" }}>
             <h1 className="heading">Login Form</h1>
-            <form className="form_container">
+            <form className="form_container" onSubmit={handleSubmit}>
                 <div className="left">
                     <Image className="img" src={login} alt="login" />
                 </div>
                 <div className="right">
                     <h2 className="from_heading">Login</h2>
 
+                    <label htmlFor="email">Email:</label>
                     <input
                         type="email"
+                        id="email"
                         className="input"
-                        placeholder="Email"
-                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
                     />
+                    <label htmlFor="password">Password:</label>
                     <input
                         type="password"
+                        id="password"
                         className="input"
-                        placeholder="Password"
-                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
-                    <Link href="../"><button className="button" type="submit">Login</button></Link>
+
+                    <button className="button" type="submit">Login</button>
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
 
                     <p className="text">or</p>
                     <button className="google-button">
