@@ -34,7 +34,7 @@ function Login() {
         event.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3000/auth/login', {
+            const response = await fetch('http://localhost:3001/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -69,7 +69,7 @@ function Login() {
 
     return (
         <div className="container" style={{ justifyContent: "center" }}>
-            <h1 className="heading">Login Form</h1>
+            <h1 className="heading">Jao Ghumo</h1>
             <form className="form_container" onSubmit={handleSubmit}>
                 <div className="left">
                     <Image className="img" src={login} alt="login" />
