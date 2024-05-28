@@ -11,8 +11,9 @@ import { FormEvent } from 'react'
 import { cookies } from 'next/headers'
 import saveCookie from "./components/cookieSave";
 import getCookies from "../components/cookieGet";
-import redirector from "./components/redirector";
+import redirector from "../components/redirector";
 import { getCookie, setCookie } from 'typescript-cookie'
+import { useRouter } from 'next/navigation'
 
 interface login_res {
     msg: string,
@@ -21,6 +22,8 @@ interface login_res {
 }
 
 function Login() {
+
+    const router = useRouter();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -34,7 +37,7 @@ function Login() {
         event.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3001/auth/login', {
+            const response = await fetch('http://localhost:3000/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -57,6 +60,7 @@ function Login() {
 
             console.log("token = " + getCookie("token"))
             // redirector();
+            router.push("../")
             console.log("redirected");
             // ... (redirect or other actions)
 

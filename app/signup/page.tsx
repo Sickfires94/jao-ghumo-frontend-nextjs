@@ -9,23 +9,27 @@ import Link from "next/link";
 import Image from "next/image";
 import Head from 'next/head';
 import { Switch, FormControlLabel } from '@mui/material';
+import redirector from "../components/redirector";
+import { useRouter } from 'next/navigation'
 
 function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isOwner, setIsOwner] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    const router = useRouter();
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3001/auth/signup', {
+            const response = await fetch('http://localhost:3000/auth/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password, firstname, lastname, role: isAdmin ? 'admin' : 'user' }),
+                body: JSON.stringify({ email, password, firstname, lastname, role: isOwner ? 'owner' : 'user' }),
             });
 
             console.log(response);
@@ -37,7 +41,9 @@ function Signup() {
             const data = await response.json();
 
             console.log('Signup successful:', data);
+
             // Redirect or handle successful signup
+            router.push("../login")
 
         } catch (error: any) {
             console.log("ERROR??!!!");
@@ -46,7 +52,7 @@ function Signup() {
     };
 
     const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setIsAdmin(event.target.checked);
+        setIsOwner(event.target.checked);
     };
 
     return (
@@ -101,8 +107,8 @@ function Signup() {
 
                     <div>
                         <FormControlLabel
-                            control={<Switch checked={isAdmin} onChange={handleRoleChange} />}
-                            label={isAdmin ? 'Admin' : 'User'}
+                            control={<Switch checked={isOwner} onChange={handleRoleChange} />}
+                            label={isOwner ? 'Owner' : 'User'}
                         />
                     </div>
 
