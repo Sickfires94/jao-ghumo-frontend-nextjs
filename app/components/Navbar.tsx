@@ -13,7 +13,6 @@ export default function ButtonAppBar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    
                     <Box display="flex" alignItems="center" sx={{ mr: 2 }}>
                         <Image src={logo} alt='/' width={50} height={100} style={{ marginRight: "10px" }} />
                         <Typography variant="h6" component="div">
@@ -21,20 +20,33 @@ export default function ButtonAppBar() {
                         </Typography>
                     </Box>
 
-                    
                     <Box sx={{ flexGrow: 1 }} justifyContent="center" display="flex">
-                        <Typography component="a" href="#" variant="h6"  sx={{ mx: 3 }}>
-                            Airports
-                        </Typography>
-                        <Typography component="a" href="#" variant="h6"  sx={{ mx: 3 }}>
-                            Trips
-                        </Typography>
-                        <Typography component="a" href="#" variant="h6"  sx={{ mx: 3 }}>
-                            Review
-                        </Typography>
+                        {['Airports', 'Trips', 'Review'].map((text) => (
+                            <Typography
+                                key={text}
+                                component="a"
+                                href="#"
+                                variant="h6"
+                                sx={{
+                                    mx: 3,
+                                    padding: '8px 16px',
+                                    borderRadius: '4px',
+                                    transition: 'box-shadow 0.3s ease-in-out',
+                                    '&:hover': {
+                                        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                                        backgroundColor: 'rgba(255, 255, 255, 0.1)', // Light background color on hover
+                                    },
+                                    textDecoration: 'none',
+                                    color: 'inherit',
+                                }}
+                            >
+                                {text}
+                            </Typography>
+                        ))}
                     </Box>
-
-                    
+                    <Link href="/signup" passHref style={{ marginRight: "5px" }}>
+                        <Button color="inherit">SignUp</Button>
+                    </Link>
                     <Link href="/login" passHref>
                         <Button color="inherit">Login</Button>
                     </Link>
