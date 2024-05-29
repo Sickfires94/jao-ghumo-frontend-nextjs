@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    font-size: 45px;
+    font-weight: 800;
+    color: #2c444e;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Trip Sans VF", "Trip Sans", Arial, sans-serif;
+    margin-bottom: 20px; /* Added margin to separate header from items */
+}
+
+.items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px; /* Added margin to create space between items and search bar */
+}
+
+.item {
+    font-size: 20px;
+    font-family: "Trip Sans VF", "Trip Sans", Arial, sans-serif;
+    cursor: pointer;
+    position: relative;
+    margin: 0 20px; /* Added margin for spacing */
+    padding: 10px 20px; /* Added padding for better click area */
+    transition: color 0.3s, background-color 0.3s; /* Added background color transition */
+}
+
+.item:hover {
+    color: #007bff; /* Change text color on hover */
+}
+
+.item::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: black;
+    transition: width 0.3s;
+}
+
+.item:hover::before {
+    width: 100%;
+}
+
+.search-bar {
+    position: relative;
+    width: 700px;
+    margin: 0 auto;
+}
+
+.search-input {
+    padding: 10px 40px 10px 10px; /* Adjust padding to accommodate the icon */
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 60px;
+    font-size: 18px;
+    outline: none;
+}
+
+.search-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    padding: 0 15px;
+    background-color: blue;
+    border: none;
+    color: #fff;
+    border-radius: 0 40px 40px 0; /* Adjust border-radius to match the input */
+    cursor: pointer;
+}
+
+.search-button i {
+    font-size: 18px;
+}
