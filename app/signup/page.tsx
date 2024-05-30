@@ -9,23 +9,42 @@ import Link from "next/link";
 import Image from "next/image";
 import Head from 'next/head';
 import { Switch, FormControlLabel } from '@mui/material';
+import redirector from "../components/redirector";
+import { useRouter } from 'next/navigation'
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import MuiLink from '@mui/material/Link';
+
+  
+  const defaultTheme = createTheme();
 
 function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isOwner, setIsOwner] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    const router = useRouter();
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3001/auth/signup', {
+            const response = await fetch('http://localhost:3000/auth/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password, firstname, lastname, role: isAdmin ? 'admin' : 'user' }),
+                body: JSON.stringify({ email, password, firstname, lastname, role: isOwner ? 'owner' : 'user' }),
             });
 
             console.log(response);
@@ -37,7 +56,9 @@ function Signup() {
             const data = await response.json();
 
             console.log('Signup successful:', data);
+
             // Redirect or handle successful signup
+            router.push("../login")
 
         } catch (error: any) {
             console.log("ERROR??!!!");
@@ -46,75 +67,102 @@ function Signup() {
     };
 
     const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setIsAdmin(event.target.checked);
+        setIsOwner(event.target.checked);
     };
 
     return (
-        <div className="container" style={{ justifyContent: "center" }}>
-            <Head>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <h1 className="heading">Jao Ghumo</h1>
-            <form className="form_container" onSubmit={handleSubmit}>
-                <div className="left">
-                    <Image className="img" src={signup} alt="signup" />
-                </div>
-                <div className="right">
-                    <h2 className="from_heading">Signup</h2>
-
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        className="input"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        className="input"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <label htmlFor="firstname">First Name:</label>
-                    <input
-                        type="text"
-                        id="firstname"
-                        className="input"
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
-                        required
-                    />
-                    <label htmlFor="lastname">Last Name:</label>
-                    <input
-                        type="text"
-                        id="lastname"
-                        className="input"
-                        value={lastname}
-                        onChange={(e) => setLastname(e.target.value)}
-                        required
-                    />
-
-                    <div>
-                        <FormControlLabel
-                            control={<Switch checked={isAdmin} onChange={handleRoleChange} />}
-                            label={isAdmin ? 'Admin' : 'User'}
-                        />
-                    </div>
-
-                    <button className="button" type="submit">Signup</button>
-                    {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-                    <p className="text">
-                        Already have an account? <Link href="../login">Login</Link>
-                    </p>
-                </div>
-            </form>
-        </div>
+        <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  onChange={(e) => setFirstname(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
+                  onChange={(e) => setLastname(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Switch checked={isOwner} onChange={handleRoleChange} />}
+                  label={isOwner ? 'Owner' : 'User'}
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <MuiLink href="../login" variant="body2">
+                  Already have an account? Login
+                </MuiLink>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
     );
 }
 

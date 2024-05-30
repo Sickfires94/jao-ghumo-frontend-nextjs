@@ -11,8 +11,26 @@ import { FormEvent } from 'react'
 import { cookies } from 'next/headers'
 import saveCookie from "./components/cookieSave";
 import getCookies from "../components/cookieGet";
-import redirector from "./components/redirector";
+import redirector from "../components/redirector";
 import { getCookie, setCookie } from 'typescript-cookie'
+import { useRouter } from 'next/navigation'
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import MuiLink from '@mui/material/Link';
+
+const defaultTheme = createTheme();
+
+
 
 interface login_res {
     msg: string,
@@ -21,6 +39,8 @@ interface login_res {
 }
 
 function Login() {
+
+    const router = useRouter();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -34,7 +54,7 @@ function Login() {
         event.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3001/auth/login', {
+            const response = await fetch('http://localhost:3000/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -57,6 +77,7 @@ function Login() {
 
             console.log("token = " + getCookie("token"))
             // redirector();
+            router.push("../")
             console.log("redirected");
             // ... (redirect or other actions)
 
@@ -68,48 +89,70 @@ function Login() {
 
 
     return (
-        <div className="container" style={{ justifyContent: "center" }}>
-            <h1 className="heading">Jao Ghumo</h1>
-            <form className="form_container" onSubmit={handleSubmit}>
-                <div className="left">
-                    <Image className="img" src={login} alt="login" />
-                </div>
-                <div className="right">
-                    <h2 className="from_heading">Login</h2>
-
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        className="input"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        className="input"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-
-                    <button className="button" type="submit">Login</button>
-                    {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-                    <p className="text">or</p>
-                    <button className="google-button">
-                        <Image src={googleIcon} alt="google icon" />
-                        <span>SignIn with Google</span>
-                    </button>
-                    <p className="text">
-                        New Here? <Link href="../signup">SignUp</Link>
-                    </p>
-                </div>
-            </form>
-        </div>
+        <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Login
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange={((e) => setEmail(e.target.value))}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={((e) => setPassword(e.target.value))}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Login
+            </Button>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <Grid container>
+              <Grid item>
+                <MuiLink component={Link} href="../signup" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </MuiLink>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
     );
 }
 
