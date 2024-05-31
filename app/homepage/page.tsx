@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlane, faHouse, faHotel, faCalendarDays, faUtensils, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import './Homepage.css';
+import './homepage.css';
 import axios from 'axios';
 
-const Homepage: React.FC = () => {
+const Homepage = () => {
     const [headerText, setHeaderText] = useState<string>('Where to?');
     const [activeItem, setActiveItem] = useState<string>('all');
     const [searchResults, setSearchResults] = useState<any[]>([]);
@@ -252,4 +252,4 @@ const Homepage: React.FC = () => {
     );
 };
 
-export default Homepage;
+export default Homepage

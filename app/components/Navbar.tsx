@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from '../img/logo.png';
+import logo from '../img/logo2.png';
 
 export default function ButtonAppBar() {
     return (
