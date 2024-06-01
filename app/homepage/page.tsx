@@ -116,16 +116,21 @@ const Homepage = () => {
             </div>
             <div className='search-bar my-4'>
                 {activeItem === 'all' && (
-                    <input
-                        type="text"
-                        className="search-input"
-                        placeholder="Places to go, things to do, hotels..."
-                        value={searchAll}
-                        onChange={(e) => setSearchAll(e.target.value)}
-                    />
+                    <div>
+                        <input
+                            type="text"
+                            className="search-input"
+                            placeholder="Places to go, things to do, hotels..."
+                            value={searchAll}
+                            onChange={(e) => setSearchAll(e.target.value)}
+                        />
+                        <button className='search-button' onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                 )}
                 {activeItem === 'hotels' && (
-                    <>
+                    <div>
                         <input
                             type="text"
                             className="search-input"
@@ -141,10 +146,13 @@ const Homepage = () => {
                             value={hotels.checkIn}
                             onChange={(e) => setHotels({ ...hotels, checkIn: e.target.value })}
                         />
-                    </>
+                        <button className='search-button' onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                 )}
                 {activeItem === 'flights' && (
-                    <>
+                    <div>
                         <input
                             type="text"
                             className="search-input"
@@ -167,11 +175,13 @@ const Homepage = () => {
                             value={flights.departure}
                             onChange={(e) => setFlights({ ...flights, departure: e.target.value })}
                         />
-
-                    </>
+                        <button className='search-button' onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                 )}
                 {activeItem === 'activities' && (
-                    <>
+                    <div>
                         <input
                             type="text"
                             className="search-input"
@@ -200,10 +210,13 @@ const Homepage = () => {
                             value={activities.rating}
                             onChange={(e) => setActivities({ ...activities, rating: e.target.value })}
                         />
-                    </>
+                        <button className='search-button' onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                 )}
                 {activeItem === 'restaurants' && (
-                    <>
+                    <div>
                         <input
                             type="text"
                             className="search-input"
@@ -232,11 +245,12 @@ const Homepage = () => {
                             value={restaurants.rating}
                             onChange={(e) => setRestaurants({ ...restaurants, rating: e.target.value })}
                         />
-                    </>
+                        <button className='search-button' onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                 )}
-                <button className='search-button' onClick={handleSearch}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </button>
+                
             </div>
             <div className="search-results">
                 {searchResults.map((result, index) => (
@@ -250,6 +264,7 @@ const Homepage = () => {
             </div>
         </div>
     );
+    
 };
 
 export default Homepage
