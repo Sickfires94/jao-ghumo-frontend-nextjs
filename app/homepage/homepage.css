@@ -33,7 +33,7 @@
     transition: color 0.3s, background-color 0.3s; 
 }
 
-.item:hover {
+.item.active, .item:hover {
     color: #007bff;
 }
 
@@ -48,17 +48,17 @@
     transition: width 0.3s;
 }
 
-.item:hover::before {
+.item.active::before, .item:hover::before {
     width: 100%;
 }
 
 .search-bar {
     position: relative;
-    width: 700px;
+    width: 90%;
+    max-width: 700px;
     margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    gap: 30px; 
+    flex-direction: column; 
 }
 
 .search-input {
@@ -68,6 +68,7 @@
     border-radius: 60px;
     font-size: 18px;
     outline: none;
+    margin-top: 20px;
 }
 
 .search-button {
@@ -106,4 +107,23 @@
 .search-result-item p {
     margin-bottom: 5px;
     font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .header {
+        font-size: 35px;
+    }
+    .item {
+        font-size: 18px;
+        margin: 0 10px;
+    }
+    .search-bar {
+        width: 100%;
+    }
+    .search-input {
+        font-size: 16px;
+    }
+    .search-button {
+        font-size: 16px;
+    }
 }
