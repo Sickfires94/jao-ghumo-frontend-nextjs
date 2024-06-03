@@ -1,10 +1,12 @@
-"use client";
+"use client"
 
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlane, faHouse, faHotel, faCalendarDays, faUtensils, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import './homepage.css';
+import { faPlane, faHouse, faHotel, faCalendarDays, faUtensils } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import FlightCard from '../cards/flight'; 
+import './homepage.css';
+import { Grid } from '@mui/material';
 
 const Homepage = () => {
     const [headerText, setHeaderText] = useState<string>('Where to?');
@@ -39,7 +41,7 @@ const Homepage = () => {
                 arrival_airport: flights.to,
                 departure_date: flights.departure,
             };
-            const response = await axios.post('http://localhost:3001/flights/search/route', { params });
+            const response = await axios.get('http://localhost:3000/flights/search/route', { params });
             setSearchResults(response.data);
         } catch (error) {
             console.error('Error fetching flight search results:', error);
@@ -254,14 +256,11 @@ const Homepage = () => {
                 )}
             </div>
             <div className="search-results">
-                {searchResults.map((result, index) => (
-                    <div key={index} className="search-result-item">
-                        <h3>{result.name}</h3>
-                        <p>{result.city}, {result.country}</p>
-                        <p>Rating: {result.rating}</p>
-                        <p>Price: {result.price}</p>
-                    </div>
-                ))}
+                <Grid container spacing={2}>
+                    {searchResults.map((result, index) => (
+                        <FlightCard key={index} flight={result} />
+                    ))}
+                </Grid>
             </div>
         </div>
     );

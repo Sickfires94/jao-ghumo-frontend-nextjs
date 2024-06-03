@@ -44,10 +44,14 @@ export default function ButtonAppBar() {
             <AppBar position="static">
                 <Toolbar>
                     <Box display="flex" alignItems="center" sx={{ mr: 2 }}>
+                        <Link href="/">
                         <Image src={logo} alt='/' width={50} height={100} style={{ marginRight: "10px" }} />
+                        </Link>
+                        <Link href="/">
                         <Typography variant="h6" component="div">
                             <strong>JAOGHUMO</strong>
                         </Typography>
+                        </Link>
                     </Box>
 
                     <Box sx={{ flexGrow: 1 }} justifyContent="center" display="flex">
