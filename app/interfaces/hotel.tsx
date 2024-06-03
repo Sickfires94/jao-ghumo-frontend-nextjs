@@ -16,7 +16,7 @@ interface hotel {
     is_deleted: Boolean,
     deleted_by: String,
     deletion_time: String,
-    creation_time: String,
+    creation_time: String, 
     updated_by: String,
     updation_time: String
 }

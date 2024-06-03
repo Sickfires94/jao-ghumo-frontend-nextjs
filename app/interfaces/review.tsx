@@ -4,11 +4,12 @@ enum place_type {
 }
 
 interface review {
+    _id: string,
     rating: number,
     description: string,
     type: place_type
     place: string,
-    owner: string,
+    owner: user,
     is_deleted: boolean,
     deleted_by: string,
     deletion_time: string,

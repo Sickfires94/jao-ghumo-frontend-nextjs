@@ -8,7 +8,7 @@ const hotel_profile = async (id: string) => {
 
     const res = await fetch('http://localhost:3000/hotels/get',
         {
-            method: 'POST',
+            method: 'POST', 
             headers: { 'Content-Type': 'application/json' }, // This line is important for backend to recognize the input
             body: JSON.stringify({
                 _id: '665bf7f8a3ccfb2aaf512c72'
@@ -18,17 +18,22 @@ const hotel_profile = async (id: string) => {
     const hotel: hotel = await res.json();
 
     const reviews: review[] = hotel.reviews;
+    const review : review = reviews[0]
+    console.log("*****************************")
+    console.log(hotel)
 
     return (
         <div>
             <Navbar />
-            <Typography variant="h1" component="div">
+            <Typography variant="h3" component="div">
                 {hotel.hotel_name}
             </Typography>
             <div>
-                {reviews.map(ReviewCard)}
+                {reviews.map((review) => (
+  <ReviewCard key={review._id} review={review}/> 
+))} 
             </div>
-        </div>
+        </div> 
     )
 }
 
