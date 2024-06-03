@@ -2,9 +2,13 @@ import React from 'react'
 import Navbar from '../components/Navbar';
 import { Typography } from '@mui/material';
 import ReviewCard from '../cards/review';
+import { useSearchParams } from 'next/navigation';
 
-const attraction_profile = async (id: string) => {
+const attraction_profile = async () => {
 
+    const searchParams = useSearchParams();
+    let id : any = searchParams.get("id");
+    
     const res = await fetch('http://localhost:3000/attractions/get',
         {
             method: 'POST', 

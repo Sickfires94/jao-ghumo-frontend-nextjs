@@ -1,10 +1,16 @@
+'use client'
+
 import React from 'react'
 import Navbar from '../components/Navbar';
 import { Typography } from '@mui/material';
 import ReviewCard from '../cards/review';
+import { useSearchParams } from "next/navigation";
 
-const hotel_profile = async (id: string) => {
+const hotel_profile = async () => {
     // test id = 665bf7f8a3ccfb2aaf512c72
+
+    const searchParams = useSearchParams();
+    let id : any = searchParams.get("id");
 
     const res = await fetch('http://localhost:3000/hotels/get',
         {
@@ -18,9 +24,6 @@ const hotel_profile = async (id: string) => {
     const hotel: hotel = await res.json();
 
     const reviews: review[] = hotel.reviews;
-    const review : review = reviews[0]
-    console.log("*****************************")
-    console.log(hotel)
 
     return (
         <div>
