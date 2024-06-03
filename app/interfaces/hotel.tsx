@@ -1,0 +1,22 @@
+interface hotel {
+    hotel_name: String,
+    continent: String,
+    contry_name: String,
+    city_name: String,
+    no_rooms: Number,
+    rating: Number,
+    price: Number,
+    numberOfReviews: Number,
+    facilities: String,
+    days_available: String,
+    website: String,
+    contact: String,
+    owner: String,
+    reviews: review[],
+    is_deleted: Boolean,
+    deleted_by: String,
+    deletion_time: String,
+    creation_time: String,
+    updated_by: String,
+    updation_time: String
+}
