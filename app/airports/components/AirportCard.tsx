@@ -1,12 +1,5 @@
 import React from 'react'
 
-interface Airport {
-    id: number;
-    country: string;
-    city: string;
-}
-
-
 const AirportCard = async () => {
     const res = await fetch('http://localhost:3000/airports/get/all',
         { method: 'POST' }
