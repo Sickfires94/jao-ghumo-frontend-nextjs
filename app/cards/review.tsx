@@ -2,9 +2,6 @@ import React from 'react';
 import { Card, CardContent, Typography, Grid, ownerDocument } from '@mui/material';
 
 
-const email = ({user}: {user: user}) => {
-   
-}
 
 const ReviewCard = async ({ review }: { review: review }) => {
     const res = await fetch('http://localhost:3000/users/get',
@@ -16,11 +13,8 @@ const ReviewCard = async ({ review }: { review: review }) => {
         })
     }
 );
-
     const owner : user = await res.json()
-
-    console.log("*******************************")
-    console.log(owner)
+    
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card>
