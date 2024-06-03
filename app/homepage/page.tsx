@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -93,28 +93,28 @@ const Homepage = () => {
         <div>
             <div className='header my-4'>{headerText}</div>
             <div className='items'>
-                <div className='item mx-4' onClick={handleHeaderText('Where to?', 'all')}>
+                <div className={`item mx-4 ${activeItem === 'all' ? 'active' : ''}`} onClick={handleHeaderText('Where to?', 'all')}>
                     <FontAwesomeIcon icon={faHouse} className="mx-2" />
                     Search All
                 </div>
-                <div className='item mx-4' onClick={handleHeaderText('Stay somewhere great', 'hotels')}>
+                <div className={`item mx-4 ${activeItem === 'hotels' ? 'active' : ''}`} onClick={handleHeaderText('Stay somewhere great', 'hotels')}>
                     <FontAwesomeIcon icon={faHotel} className="mx-2" />
                     Hotels
                 </div>
-                <div className='item mx-4' onClick={handleHeaderText('Find a flight', 'flights')}>
+                <div className={`item mx-4 ${activeItem === 'flights' ? 'active' : ''}`} onClick={handleHeaderText('Find a flight', 'flights')}>
                     <FontAwesomeIcon icon={faPlane} className="mx-2" />
                     Flights
                 </div>
-                <div className='item mx-4' onClick={handleHeaderText('Do something fun', 'activities')}>
+                <div className={`item mx-4 ${activeItem === 'activities' ? 'active' : ''}`} onClick={handleHeaderText('Do something fun', 'activities')}>
                     <FontAwesomeIcon icon={faCalendarDays} className="mx-2" />
                     Things to do
                 </div>
-                <div className='item mx-4' onClick={handleHeaderText('Find places to eat', 'restaurants')}>
+                <div className={`item mx-4 ${activeItem === 'restaurants' ? 'active' : ''}`} onClick={handleHeaderText('Find places to eat', 'restaurants')}>
                     <FontAwesomeIcon icon={faUtensils} className="mx-2" />
                     Restaurants
                 </div>
             </div>
-            <div className='search-bar my-4'>
+            <div className='search-bar'>
                 {activeItem === 'all' && (
                     <div>
                         <input
@@ -138,8 +138,9 @@ const Homepage = () => {
                             value={hotels.name}
                             onChange={(e) => setHotels({ ...hotels, name: e.target.value })}
                         />
-                        <h1>Check-in date</h1>
+                        <label htmlFor="checkIn">Check-in date</label>
                         <input
+                            id="checkIn"
                             type="date"
                             className="search-input"
                             placeholder="Check-in date"
@@ -167,8 +168,9 @@ const Homepage = () => {
                             value={flights.to}
                             onChange={(e) => setFlights({ ...flights, to: e.target.value })}
                         />
-                        <h1>Departure date</h1>
+                        <label htmlFor="departure">Departure date</label>
                         <input
+                            id="departure"
                             type="date"
                             className="search-input"
                             placeholder="Departure date"
@@ -250,7 +252,6 @@ const Homepage = () => {
                         </button>
                     </div>
                 )}
-                
             </div>
             <div className="search-results">
                 {searchResults.map((result, index) => (
@@ -264,7 +265,6 @@ const Homepage = () => {
             </div>
         </div>
     );
-    
 };
 
-export default Homepage
+export default Homepage;
