@@ -13,6 +13,7 @@ const ReviewCard = async ({ review }: { review: review }) => {
         })
     }
 );
+
     const owner : user = await res.json()
     
     return (

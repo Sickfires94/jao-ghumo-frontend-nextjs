@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import { Typography } from '@mui/material';
 import ReviewCard from '../cards/review';
 import { useSearchParams } from "next/navigation";
+import ReviewForm from '../components/ReviewForm';
 
 const hotel_profile = async () => {
     // test id = 665bf7f8a3ccfb2aaf512c72
@@ -35,6 +36,11 @@ const hotel_profile = async () => {
                 {reviews.map((review) => (
   <ReviewCard key={review._id} review={review}/> 
 ))} 
+            </div>
+            <div>
+                <ReviewForm 
+                _id = {id}
+                />
             </div>
         </div> 
     )
