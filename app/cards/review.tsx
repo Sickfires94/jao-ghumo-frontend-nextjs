@@ -2,9 +2,6 @@ import React from 'react';
 import { Card, CardContent, Typography, Grid, ownerDocument } from '@mui/material';
 
 
-const email = ({user}: {user: user}) => {
-   
-}
 
 const ReviewCard = async ({ review }: { review: review }) => {
     const res = await fetch('http://localhost:3000/users/get',
