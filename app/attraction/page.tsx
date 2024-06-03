@@ -3,10 +3,9 @@ import Navbar from '../components/Navbar';
 import { Typography } from '@mui/material';
 import ReviewCard from '../cards/review';
 
-const hotel_profile = async (id: string) => {
-    // test id = 665bf7f8a3ccfb2aaf512c72
+const attraction_profile = async (id: string) => {
 
-    const res = await fetch('http://localhost:3000/hotels/get',
+    const res = await fetch('http://localhost:3000/attractions/get',
         {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' }, // This line is important for backend to recognize the input
@@ -15,18 +14,16 @@ const hotel_profile = async (id: string) => {
             })
         }
     )
-    const hotel: hotel = await res.json();
+    const attraction: attraction = await res.json();
 
-    const reviews: review[] = hotel.reviews;
+    const reviews: review[] = attraction.reviews;
     const review : review = reviews[0]
-    console.log("*****************************")
-    console.log(hotel)
 
     return (
         <div>
             <Navbar />
             <Typography variant="h3" component="div">
-                {hotel.hotel_name}
+                {attraction.name}
             </Typography>
             <div>
                 {reviews.map((review) => (
@@ -37,4 +34,4 @@ const hotel_profile = async (id: string) => {
     )
 }
 
-export default hotel_profile         
+export default attraction_profile        
