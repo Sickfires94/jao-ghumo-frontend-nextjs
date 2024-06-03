@@ -55,7 +55,7 @@ export default function ButtonAppBar() {
                     </Box>
 
                     <Box sx={{ flexGrow: 1 }} justifyContent="center" display="flex">
-                        {['Attractions', 'Trips', 'Review'].map((text) => (
+                        {['Attraction', 'Trips', 'Review'].map((text) => (
                             <Link href={`/${text.toLowerCase()}`} key={text} passHref>
                                 <Typography
                                     component="a"
