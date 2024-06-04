@@ -92,7 +92,6 @@ const Homepage = () => {
     
 
     
-
     const handleSearch = async () => {
         if (activeItem === 'hotels') {
             await searchHotels();
@@ -255,7 +254,7 @@ const Homepage = () => {
                             <FlightCard key={index} flight={result} />
                         ) : activeItem === 'hotels' ? (
                             <HotelCard key={index} hotel={result} />
-                        ) : (activeItem === 'activities' && (result.type === 'amusement park' || result.type === 'attractions') || activeItem === 'restaurants' && result.type === 'restaurant') ? (
+                        ) : (activeItem === 'activities' && (result.type === 'amusement park' || result.type === 'attraction') || activeItem === 'restaurants' && result.type === 'restaurant') ? (
                             <AttractionCard key={index} attraction={result}/>
                         ) : null
                     ))}
