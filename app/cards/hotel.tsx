@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { Card, CardContent, Typography, Grid, CardMedia } from '@mui/material';
+import { Card, CardContent, Typography, Grid, CardMedia, CardActions, Button } from '@mui/material';
 import hotels from '../img/hotel.jpg'
 
 interface HotelCardProps {
@@ -50,6 +50,11 @@ const HotelCard: React.FC<HotelCardProps> = ({ hotel }) => {
                         Days Available: {hotel.days_available}
                     </Typography>
                 </CardContent>
+                <CardActions>
+                    <Button variant="contained" size="small">
+                        <strong>Check Reviews</strong>
+                    </Button>
+                </CardActions>
             </Card>
         </Grid>
     );

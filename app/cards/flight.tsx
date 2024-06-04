@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { Card, CardContent, Typography, Grid, CardMedia } from '@mui/material';
+import { Card, CardContent, Typography, Grid, CardMedia, CardActions, Button } from '@mui/material';
 import plane from '../img/plane.webp'
 
 interface FlightCardProps {
@@ -19,10 +19,12 @@ interface FlightCardProps {
 }
 
 const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
+
+    
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card>
-                <CardMedia component='img' image={plane.src} height="194"/>
+                <CardMedia component='img' image={plane.src} height="194" />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
                         Departure: {flight.departure_airport} at {new Date(flight.departure_time).toLocaleString()}
@@ -46,6 +48,11 @@ const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
                         Plane ID: {flight.plane_id}
                     </Typography>
                 </CardContent>
+                <CardActions>
+                    <Button variant="contained" size="small">
+                        <strong>Book</strong>
+                    </Button>
+                </CardActions>
             </Card>
         </Grid>
     );

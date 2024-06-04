@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, Grid, ownerDocument } from '@mui/materia
 
 
 
-const ReviewCard = async ({ review }: { review: review }, {hotel}: {hotel:hotel}) => {
+const ReviewCard = async ({ review }: { review: review }) => {
     const res = await fetch('http://localhost:3000/users/get',
     {
         method: 'POST', 
@@ -19,9 +19,6 @@ const ReviewCard = async ({ review }: { review: review }, {hotel}: {hotel:hotel}
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card>
                 <CardContent>
-                    <Typography variant="h5" component="div">
-                        {hotel.hotel_name}
-                    </Typography>
                     <Typography variant="h6" component="div">
                         {owner.email}
                     </Typography>
