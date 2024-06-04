@@ -55,27 +55,27 @@ export default function ButtonAppBar() {
                     </Box>
 
                     <Box sx={{ flexGrow: 1 }} justifyContent="center" display="flex">
-                        {['Attraction', 'Trips', 'Review'].map((text) => (
-                            <Link href={`/${text.toLowerCase()}`} key={text} passHref>
-                                <Typography
-                                    component="a"
-                                    variant="h6"
-                                    sx={{
-                                        mx: 3,
-                                        padding: '8px 16px',
-                                        borderRadius: '4px',
-                                        transition: 'box-shadow 0.3s ease-in-out',
-                                        '&:hover': {
-                                            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
-                                            backgroundColor: 'rgba(255, 255, 255, 0.1)', // Light background color on hover
-                                        },
-                                        textDecoration: 'none',
-                                        color: 'inherit',
-                                    }}
-                                >
-                                    {text}
-                                </Typography>
-                            </Link>
+                        {['Airports', 'Trips', 'Review'].map((text) => (
+                            <Typography
+                                key={text}
+                                component="a"
+                                href="#"
+                                variant="h6"
+                                sx={{
+                                    mx: 3,
+                                    padding: '8px 16px',
+                                    borderRadius: '4px',
+                                    transition: 'box-shadow 0.3s ease-in-out',
+                                    '&:hover': {
+                                        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                                        backgroundColor: 'rgba(255, 255, 255, 0.1)', // Light background color on hover
+                                    },
+                                    textDecoration: 'none',
+                                    color: 'inherit',
+                                }}
+                            >
+                                {text}
+                            </Typography>
                         ))}
                     </Box>
 
@@ -113,8 +113,8 @@ export default function ButtonAppBar() {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>{`${user?.firstname} ${user?.lastname}`}</MenuItem>
-                                <MenuItem onClick={handleClose}>{user?.role}</MenuItem>
+                                <MenuItem>{`${user?.firstname} ${user?.lastname}`}</MenuItem>
+                                <MenuItem>{user?.role}</MenuItem>
                                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
                             </Menu>
                         </div>
