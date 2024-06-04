@@ -89,6 +89,7 @@ const Homepage = () => {
             console.error('Error fetching restaurant search results:', error);
         }
     };
+    
 
     
 
