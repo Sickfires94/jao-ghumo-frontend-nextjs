@@ -9,6 +9,10 @@ import FlightCard from '../cards/flight';
 import HotelCard from '../cards/hotel';
 import { Grid } from '@mui/material';
 import AttractionCard from '../cards/attraction';
+import hotelBg from '../img/hotel-bg.jpeg'
+import attractionBg from '../img/attraction-bg.jpg'
+import flightBg from '../img/flight-bg.jpg'
+import restaurantBg from '../img/restaurant-bg.jpg'
 
 const Homepage = () => {
     const [headerText, setHeaderText] = useState<string>('Where to?');
@@ -104,8 +108,20 @@ const Homepage = () => {
         }
     };
 
+    const getBackgroundImage = async () => {
+        if (activeItem === 'hotels') {
+            return hotelBg.src;
+        } else if (activeItem === 'flights') {
+            return flightBg.src;
+        } else if (activeItem === 'activities') {
+            return attractionBg.src;
+        } else if (activeItem === 'restaurants') {
+            return restaurantBg.src;
+        }
+    };
+
     return (
-        <div>
+        <div style={{ backgroundImage: `url(${getBackgroundImage})`, backgroundSize: 'cover' }}>
             <div className='header my-4'>{headerText}</div>
             <div className='items'>
                 <div className={`item mx-4 ${activeItem === 'all' ? 'active' : ''}`} onClick={handleHeaderText('Where to?', 'all')}>

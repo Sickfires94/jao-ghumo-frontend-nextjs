@@ -4,6 +4,7 @@ import React from 'react';
 import { Card, CardContent, Typography, Grid, CardMedia } from '@mui/material';
 import attractions from '../img/attraction.jpeg';
 import restaurants from '../img/restaurant.jpg';
+import amusementPark from '../img/amusement park.jpg'
 
 interface AttractionCardProps {
     attraction: {
@@ -26,7 +27,7 @@ interface AttractionCardProps {
 }
 
 const AttractionCard: React.FC<AttractionCardProps> = ({ attraction }) => {
-    const imageSrc = attraction.type === 'restaurant' ? restaurants.src : attractions.src;
+    const imageSrc = attraction.type === 'restaurant' ? restaurants.src : attraction.type === 'amusement park' ? amusementPark.src : attractions.src;
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card>

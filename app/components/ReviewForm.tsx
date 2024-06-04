@@ -58,7 +58,7 @@ const ReviewForm = ({_id} : {_id: string}) => {
 
 
     return (
-        <div> <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <div> <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, maxWidth: 345 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField
