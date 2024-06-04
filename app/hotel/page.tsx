@@ -23,8 +23,13 @@ const hotel_profile = async () => {
         }
     )
     const hotel: hotel = await res.json();
+    
 
     const reviews: review[] = hotel.reviews;
+
+    console.log("*****************")
+    console.log("reviews: " + reviews);
+    console.log("hotel: " + hotel.hotel_name);
 
     return (
         <div>

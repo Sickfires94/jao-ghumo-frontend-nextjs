@@ -1,60 +1,64 @@
-"use client"
+"use client";
 
 import React from 'react';
-import { Card, CardContent, Typography, Grid, CardMedia, CardActions, Button } from '@mui/material';
-import hotels from '../img/hotel.jpg'
+import { Card, CardContent, Typography, Grid, CardMedia, Button } from '@mui/material';
+import hotels from '../img/hotel.jpg';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation'
 
 interface HotelCardProps {
     hotel: {
-        hotel_name: String;
-        continent: String;
-        country_name: String;
-        city_name: String;
-        no_rooms: Number;
-        rating: Number;
-        price: Number;
-        numberOfReviews: Number;
-        facilities: String;
-        days_available: String;
+        _id: string;
+        hotel_name?: string;
+        continent?: string;
+        country_name?: string;
+        city_name?: string;
+        no_rooms?: number;
+        rating?: number;
+        price?: number;
+        numberOfReviews?: number;
+        facilities?: string;
+        days_available?: string;
     };
 }
 
+
+
 const HotelCard: React.FC<HotelCardProps> = ({ hotel }) => {
+    const router = useRouter()
+    const onClick = async () => {
+        router.push("/hotel?id=" + hotel._id);
+    }
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card>
                 <CardMedia component='img' image={hotels.src} height="194" />
                 <CardContent>
                     <Typography variant="body2" component="div">
-                        {hotel.hotel_name}
+                        {hotel.hotel_name || 'No name available'}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                    {hotel.city_name}, {hotel.country_name}, {hotel.continent}
-                    </Typography>
-                    {/* <Typography variant="body2" color="text.secondary">
-                        No. of Rooms: {hotel.no_rooms.toString()}
-                    </Typography> */}
-                    <Typography variant="body2" color="text.secondary">
-                        Rating: {hotel.rating.toString()}
+                        {hotel.city_name || 'Unknown City'}, {hotel.country_name || 'Unknown Country'}, {hotel.continent || 'Unknown Continent'}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Price: {hotel.price.toString()}
+                        Rating: {hotel.rating?.toString() || 'N/A'}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        No. of Reviews: {hotel.numberOfReviews.toString()}
+                        Price: {hotel.price?.toString() || 'N/A'}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Facilities: {hotel.facilities}
+                        No. of Reviews: {hotel.numberOfReviews?.toString() || 'N/A'}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Days Available: {hotel.days_available}
+                        Facilities: {hotel.facilities || 'N/A'}
                     </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button variant="contained" size="small">
-                        <strong>Check Reviews</strong>
+                    <Typography variant="body2" color="text.secondary">
+                        Days Available: {hotel.days_available || 'N/A'}
+                    </Typography>
+                    <Button onClick={onClick}>
+                        Profile
                     </Button>
-                </CardActions>
+                </CardContent>
             </Card>
         </Grid>
     );
