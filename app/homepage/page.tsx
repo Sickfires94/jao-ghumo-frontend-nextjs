@@ -1,60 +1,74 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlane, faHouse, faHotel, faCalendarDays, faUtensils, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import './Homepage.css';
+import './homepage.css';
 import axios from 'axios';
+import FlightCard from '../cards/flight';
+import HotelCard from '../cards/hotel';
+import { Grid } from '@mui/material';
+import AttractionCard from '../cards/attraction';
 
-const Homepage: React.FC = () => {
+const Homepage = () => {
     const [headerText, setHeaderText] = useState<string>('Where to?');
     const [activeItem, setActiveItem] = useState<string>('all');
     const [searchResults, setSearchResults] = useState<any[]>([]);
 
     const [searchAll, setSearchAll] = useState<string>('');
     const [hotels, setHotels] = useState({ name: '', checkIn: '', checkOut: '' });
-    const [flights, setFlights] = useState({ from: '', to: '', departure: '' });
-    const [activities, setActivities] = useState({ name: '', location: '', priceRange: '', rating: '' });
-    const [restaurants, setRestaurants] = useState({ name: '', location: '', priceRange: '', rating: '' });
+    const [flights, setFlights] = useState({ from: '', to: ''});
+    const [activities, setActivities] = useState({ location: '', priceRange: '', rating_min: '' });
+    const [restaurants, setRestaurants] = useState({ location: '', priceRange: '', rating_min: '' });
 
     const handleHeaderText = (htext: string, item: string) => () => {
         setHeaderText(htext);
         setActiveItem(item);
+        setSearchResults([]);
+        setSearchAll('');
+        setHotels({ name: '', checkIn: '', checkOut: '' });
+        setFlights({ from: '', to: '' });
+        setActivities({ location: '', priceRange: '', rating_min: '' });
+        setRestaurants({ location: '', priceRange: '', rating_min: '' });
     };
 
     const searchHotels = async () => {
         try {
-            const params = { country_name: hotels.name };
-            const response = await axios.post('http://localhost:3001/hotels/filter', { params });
+            const params = {
+                hotel_name: hotels.name,
+            };
+            const queryString = new URLSearchParams(params).toString();
+            const response = await axios.post(`http://localhost:3000/hotels/filter?${queryString}`);
             setSearchResults(response.data);
         } catch (error) {
             console.error('Error fetching hotel search results:', error);
         }
     };
+    
 
     const searchFlights = async () => {
         try {
-            const params = {
+            const body = {
                 departure_airport: flights.from,
                 arrival_airport: flights.to,
-                departure_date: flights.departure,
             };
-            const response = await axios.post('http://localhost:3001/flights/search/route', { params });
+            const response = await axios.post('http://localhost:3000/flights/search/route', body);
+                
             setSearchResults(response.data);
         } catch (error) {
             console.error('Error fetching flight search results:', error);
         }
     };
+    
 
     const searchActivities = async () => {
         try {
             const params = {
-                name: activities.name,
-                location: activities.location,
+                city: activities.location,
                 priceRange: activities.priceRange,
-                rating: activities.rating,
+                rating_min: activities.rating_min,
             };
-            const response = await axios.post('http://localhost:3001/attractions/filter', { params });
+            const response = await axios.post('http://localhost:3000/attractions/filter', { params });
             setSearchResults(response.data);
         } catch (error) {
             console.error('Error fetching activity search results:', error);
@@ -64,19 +78,20 @@ const Homepage: React.FC = () => {
     const searchRestaurants = async () => {
         try {
             const params = {
-                name: restaurants.name,
-                location: restaurants.location,
+                city: restaurants.location,
                 priceRange: restaurants.priceRange,
-                rating: restaurants.rating,
+                rating_min: restaurants.rating_min,
                 type: 'restaurant',
             };
-            const response = await axios.post('http://localhost:3001/attractions/filter', { params });
+            const response = await axios.post('http://localhost:3000/attractions/filter', { params });
             setSearchResults(response.data);
         } catch (error) {
             console.error('Error fetching restaurant search results:', error);
         }
     };
+    
 
+    
     const handleSearch = async () => {
         if (activeItem === 'hotels') {
             await searchHotels();
@@ -93,39 +108,44 @@ const Homepage: React.FC = () => {
         <div>
             <div className='header my-4'>{headerText}</div>
             <div className='items'>
-                <div className='item mx-4' onClick={handleHeaderText('Where to?', 'all')}>
+                <div className={`item mx-4 ${activeItem === 'all' ? 'active' : ''}`} onClick={handleHeaderText('Where to?', 'all')}>
                     <FontAwesomeIcon icon={faHouse} className="mx-2" />
                     Search All
                 </div>
-                <div className='item mx-4' onClick={handleHeaderText('Stay somewhere great', 'hotels')}>
+                <div className={`item mx-4 ${activeItem === 'hotels' ? 'active' : ''}`} onClick={handleHeaderText('Stay somewhere great', 'hotels')}>
                     <FontAwesomeIcon icon={faHotel} className="mx-2" />
                     Hotels
                 </div>
-                <div className='item mx-4' onClick={handleHeaderText('Find a flight', 'flights')}>
+                <div className={`item mx-4 ${activeItem === 'flights' ? 'active' : ''}`} onClick={handleHeaderText('Find a flight', 'flights')}>
                     <FontAwesomeIcon icon={faPlane} className="mx-2" />
                     Flights
                 </div>
-                <div className='item mx-4' onClick={handleHeaderText('Do something fun', 'activities')}>
+                <div className={`item mx-4 ${activeItem === 'activities' ? 'active' : ''}`} onClick={handleHeaderText('Do something fun', 'activities')}>
                     <FontAwesomeIcon icon={faCalendarDays} className="mx-2" />
                     Things to do
                 </div>
-                <div className='item mx-4' onClick={handleHeaderText('Find places to eat', 'restaurants')}>
+                <div className={`item mx-4 ${activeItem === 'restaurants' ? 'active' : ''}`} onClick={handleHeaderText('Find places to eat', 'restaurants')}>
                     <FontAwesomeIcon icon={faUtensils} className="mx-2" />
                     Restaurants
                 </div>
             </div>
-            <div className='search-bar my-4'>
+            <div className='search-bar'>
                 {activeItem === 'all' && (
-                    <input
-                        type="text"
-                        className="search-input"
-                        placeholder="Places to go, things to do, hotels..."
-                        value={searchAll}
-                        onChange={(e) => setSearchAll(e.target.value)}
-                    />
+                    <div>
+                        <input
+                            type="text"
+                            className="search-input"
+                            placeholder="Places to go, things to do, hotels..."
+                            value={searchAll}
+                            onChange={(e) => setSearchAll(e.target.value)}
+                        />
+                        <button className='search-button' onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                 )}
                 {activeItem === 'hotels' && (
-                    <>
+                    <div>
                         <input
                             type="text"
                             className="search-input"
@@ -133,18 +153,22 @@ const Homepage: React.FC = () => {
                             value={hotels.name}
                             onChange={(e) => setHotels({ ...hotels, name: e.target.value })}
                         />
-                        <h1>Check-in date</h1>
+                        <label htmlFor="checkIn">Check-in date</label>
                         <input
+                            id="checkIn"
                             type="date"
                             className="search-input"
                             placeholder="Check-in date"
                             value={hotels.checkIn}
                             onChange={(e) => setHotels({ ...hotels, checkIn: e.target.value })}
                         />
-                    </>
+                        <button className='search-button' onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                 )}
                 {activeItem === 'flights' && (
-                    <>
+                    <div>
                         <input
                             type="text"
                             className="search-input"
@@ -159,26 +183,14 @@ const Homepage: React.FC = () => {
                             value={flights.to}
                             onChange={(e) => setFlights({ ...flights, to: e.target.value })}
                         />
-                        <h1>Departure date</h1>
-                        <input
-                            type="date"
-                            className="search-input"
-                            placeholder="Departure date"
-                            value={flights.departure}
-                            onChange={(e) => setFlights({ ...flights, departure: e.target.value })}
-                        />
-
-                    </>
+                        
+                        <button className='search-button' onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                 )}
                 {activeItem === 'activities' && (
-                    <>
-                        <input
-                            type="text"
-                            className="search-input"
-                            placeholder="Name"
-                            value={activities.name}
-                            onChange={(e) => setActivities({ ...activities, name: e.target.value })}
-                        />
+                    <div>
                         <input
                             type="text"
                             className="search-input"
@@ -197,20 +209,17 @@ const Homepage: React.FC = () => {
                             type="number"
                             className="search-input"
                             placeholder="Min Rating"
-                            value={activities.rating}
-                            onChange={(e) => setActivities({ ...activities, rating: e.target.value })}
+                            value={activities.rating_min}
+                            onChange={(e) => setActivities({ ...activities, rating_min: e.target.value })}
                         />
-                    </>
+                        <button className='search-button' onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                 )}
                 {activeItem === 'restaurants' && (
-                    <>
-                        <input
-                            type="text"
-                            className="search-input"
-                            placeholder="Restaurant name or destination"
-                            value={restaurants.name}
-                            onChange={(e) => setRestaurants({ ...restaurants, name: e.target.value })}
-                        />
+                    <div>
+                        
                         <input
                             type="text"
                             className="search-input"
@@ -229,24 +238,27 @@ const Homepage: React.FC = () => {
                             type="number"
                             className="search-input"
                             placeholder="Min Rating"
-                            value={restaurants.rating}
-                            onChange={(e) => setRestaurants({ ...restaurants, rating: e.target.value })}
+                            value={restaurants.rating_min}
+                            onChange={(e) => setRestaurants({ ...restaurants, rating_min: e.target.value })}
                         />
-                    </>
+                        <button className='search-button' onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
                 )}
-                <button className='search-button' onClick={handleSearch}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </button>
             </div>
             <div className="search-results">
-                {searchResults.map((result, index) => (
-                    <div key={index} className="search-result-item">
-                        <h3>{result.name}</h3>
-                        <p>{result.city}, {result.country}</p>
-                        <p>Rating: {result.rating}</p>
-                        <p>Price: {result.price}</p>
-                    </div>
-                ))}
+            <Grid container spacing={2}>
+                    {searchResults.map((result, index) => (
+                        activeItem === 'flights' ? (
+                            <FlightCard key={index} flight={result} />
+                        ) : activeItem === 'hotels' ? (
+                            <HotelCard key={index} hotel={result} />
+                        ) : (activeItem === 'activities' && (result.type === 'amusement park' || result.type === 'attraction') || activeItem === 'restaurants' && result.type === 'restaurant') ? (
+                            <AttractionCard key={index} attraction={result}/>
+                        ) : null
+                    ))}
+                </Grid>
             </div>
         </div>
     );

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import './login.css'
-import login from '../img/login.jpg'
 import googleIcon from '../img/google-icon.png'
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -27,6 +26,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MuiLink from '@mui/material/Link';
+import {login} from '../redux/authSlice'
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice";
 
 const defaultTheme = createTheme();
 
@@ -40,6 +42,7 @@ interface login_res {
 
 function Login() {
 
+    const dispatch = useDispatch();
     const router = useRouter();
 
     const [email, setEmail] = useState('');
@@ -72,7 +75,12 @@ function Login() {
             // Handle successful login (e.g., redirect to home page)
             console.log('Login successful:', data);
             const token = data.token
-
+            dispatch(login(token))
+            dispatch(setUser({
+              firstname: data.firstname,
+              lastname: data.lastname,
+              role: data.role,
+            }));
             setCookie("token", token);
 
             console.log("token = " + getCookie("token"))
