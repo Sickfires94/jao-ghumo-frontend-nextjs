@@ -72,7 +72,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
                         Ticket Price: ${flight.ticket_price}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Flight ID: {flight.flight_id}
+                        Flight ID: {flight.flight_id || 'N/A'}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         Plane ID: {flight.plane_id}
