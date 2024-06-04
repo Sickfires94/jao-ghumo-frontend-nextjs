@@ -16,8 +16,6 @@ const ReviewCard = ({ review }) => {
                     body: JSON.stringify({ _id: review.owner })
                 });
 
-              
-
                 if (res.ok) {
                     const ownerData = await res.json();
                     setOwner(ownerData);
@@ -36,22 +34,13 @@ const ReviewCard = ({ review }) => {
         return <div>Loading...</div>;
     }
 
-
-
-    const owner : user = await res.json()
-    
-
     return (
         <Grid sx={{ mt: 3, maxWidth: 345, boxShadow: "2px 2px 2px 2px" }}>
             <Card>
-            <CardMedia component='img' image={hotel.src} height="194" />
                 <CardContent>
                     <Typography variant="h6" component="div">
                         {owner.email}
                     </Typography>
-                    {/* <Typography variant="body2" color="text.secondary">
-                        Rating: {review.rating.toString()}
-                    </Typography> */}
                     <Rating value={review.rating} name='read-only' readOnly/>
                     <Typography variant="body2" color="text.secondary">
                         {review.description}
@@ -64,5 +53,4 @@ const ReviewCard = ({ review }) => {
         </Grid>
     );
 };
-
 export default ReviewCard;
