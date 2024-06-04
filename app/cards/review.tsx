@@ -1,21 +1,36 @@
-import React from 'react';
-import { Card, CardContent, Typography, Grid, ownerDocument } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Card, CardContent, Typography, Grid } from '@mui/material';
 
+const ReviewCard = ({ review }) => {
+    const [owner, setOwner] = useState(null);
 
+    useEffect(() => {
+        const fetchOwner = async () => {
+            try {
+                const res = await fetch('http://localhost:3000/users/get', {
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ _id: review.owner })
+                });
 
-const ReviewCard = async ({ review }: { review: review }) => {
-    const res = await fetch('http://localhost:3000/users/get',
-    {
-        method: 'POST', 
-        headers: { 'Content-Type': 'application/json' }, // This line is important for backend to recognize the input
-        body: JSON.stringify({
-            _id: review.owner
-        })
+                if (res.ok) {
+                    const ownerData = await res.json();
+                    setOwner(ownerData);
+                } else {
+                    console.error('Failed to fetch owner data');
+                }
+            } catch (error) {
+                console.error('Error fetching owner data:', error);
+            }
+        };
+
+        fetchOwner();
+    }, [review.owner]);
+
+    if (!owner) {
+        return <div>Loading...</div>;
     }
-);
 
-    const owner : user = await res.json()
-    
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card>
