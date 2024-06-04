@@ -120,7 +120,7 @@ export default function ButtonAppBar() {
                             </>
                         ) : (
                             <>
-                                {['Airports', 'Trips', 'Review'].map((text) => (
+                                {['Bookings', 'Trips', 'Review'].map((text) => (
                                     <Typography
                                         key={text}
                                         component="a"

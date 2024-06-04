@@ -4,6 +4,12 @@
     box-sizing: border-box;
 }
 
+.homepage {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
 .header {
     font-size: 45px;
     font-weight: 800;
