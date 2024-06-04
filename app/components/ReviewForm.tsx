@@ -1,6 +1,6 @@
 "use client"
 
-import router from 'next/router';
+import { useRouter } from 'next/navigation'
 import React, { FormEvent, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
@@ -14,6 +14,8 @@ const ReviewForm = ({_id} : {_id: string}) => {
     const [rating, setRating] = useState('');
     const [description, setDescription] = useState('');
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    const router = useRouter()
 
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     
@@ -46,7 +48,8 @@ const ReviewForm = ({_id} : {_id: string}) => {
             console.log('Post successful:', data);
 
             // Redirect or handle successful Post
-            router.push("./")
+            // router.push("/hotel?id=" + _id)
+            router.refresh()
 
         } catch (error: any) {
             setErrorMessage(error.message);
