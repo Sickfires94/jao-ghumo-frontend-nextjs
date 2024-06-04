@@ -12,7 +12,7 @@ const onSubmit = () => {
 
 const loginCard = async () => {
     return (
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid sx={{ maxWidth: 300, marginTop: "1rem"}}>
             <Card>
                 <CardContent> 
                     <Link href={"/login"}>Login to Leave a Review</Link>
