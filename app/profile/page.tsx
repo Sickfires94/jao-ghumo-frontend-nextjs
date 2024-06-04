@@ -1,10 +1,10 @@
-"use client";
-
+'use client';
 
 import React, { useState, useEffect } from 'react';
-import './profile.css'; // Make sure to save the provided CSS as UserProfile.css
-import ButtonAppBar from '../components/Navbar'
-import { getCookie } from 'typescript-cookie'; // Ensure you have installed 'typescript-cookie'
+import { TextField, Button, Container, Typography, Avatar, Box, Link } from '@mui/material';
+import { styled } from '@mui/system';
+import { getCookie } from 'typescript-cookie';
+import ButtonAppBar from '../components/Navbar';
 
 interface User {
     email: string;
@@ -12,12 +12,29 @@ interface User {
     lastname: string;
 }
 
+const FormContainer = styled(Container)(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: theme.spacing(8),
+}));
+
+const Form = styled('form')(({ theme }) => ({
+    width: '100%',
+    marginTop: theme.spacing(1),
+}));
+
+const SubmitButton = styled(Button)(({ theme }) => ({
+    margin: theme.spacing(3, 0, 2),
+}));
+
 const UserProfile: React.FC = () => {
     const [user, setUser] = useState<User>({
         email: '',
         firstname: '',
         lastname: '',
     });
+    const [image, setImage] = useState<string | ArrayBuffer | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,9 +91,12 @@ const UserProfile: React.FC = () => {
                 body: JSON.stringify({ email: user.email })
             });
 
-            
+            if (response.ok) {
+                console.log('Account deactivated');
+            } else {
+                console.error('Failed to deactivate account:', response.statusText);
             }
-            catch (error) {
+        } catch (error) {
             console.error('Deactivation failed:', error);
         }
     };
@@ -86,52 +106,110 @@ const UserProfile: React.FC = () => {
         console.log('Change Password clicked');
     };
 
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     return (
         <>
             <ButtonAppBar />
-            <div className="user-profile">
-                <div className="header">Profile</div>
-                <form onSubmit={handleSubmit} className="items">
-                    <div className="item">
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={user.email}
-                            onChange={handleChange}
-                            className="search-input"
-                            readOnly
-                        />
-                    </div>
-                    <div className="item">
-                        <label htmlFor="firstname">First Name:</label>
-                        <input
-                            type="text"
-                            id="firstname"
-                            name="firstname"
-                            value={user.firstname}
-                            onChange={handleChange}
-                            className="search-input"
-                            readOnly
-                        />
-                    </div>
-                    <div className="item">
-                        <label htmlFor="lastname">Last Name:</label>
-                        <input
-                            type="text"
-                            id="lastname"
-                            name="lastname"
-                            value={user.lastname}
-                            onChange={handleChange}
-                            className="search-input"
-                            readOnly
-                        />
-                    </div>
-                    <button type="button" className="search-button" onClick={handleDeactivate}>Deactivate Account</button>
-                    <button type="button" className="search-button" onClick={handleChangePassword}>Change Password</button>
-                </form>
-            </div>
+            <FormContainer  maxWidth="xs">
+                <Avatar 
+                    alt="Profile Picture" 
+                    src={typeof image === 'string' ? image : '/default-profile-pic.jpg'} 
+                    sx={{ width: 150, height: 150 }} // Increase the size here
+                />
+                <input
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    id="icon-button-file"
+                    type="file"
+                    onChange={handleImageUpload}
+                />
+                <label htmlFor="icon-button-file">
+                    <Button component="span" variant="text">
+                        Import Image
+                    </Button>
+                </label>
+                <Typography component="h1" variant="h5">
+                    {user.firstname} {user.lastname}
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom>
+                    {user.email}
+                </Typography>
+                <Form onSubmit={handleSubmit}>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Your Email Address"
+                        name="email"
+                        autoComplete="email"
+                        value={user.email}
+                        onChange={handleChange}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="firstname"
+                        label="First Name"
+                        name="firstname"
+                        autoComplete="fname"
+                        value={user.firstname}
+                        onChange={handleChange}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="lastname"
+                        label="Last Name"
+                        name="lastname"
+                        autoComplete="lname"
+                        value={user.lastname}
+                        onChange={handleChange}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                    />
+                    <SubmitButton
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        onClick={handleDeactivate}
+                    >
+                        Deactivate Account
+                    </SubmitButton>
+                    <SubmitButton
+                        type="button"
+                        fullWidth
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleChangePassword}
+                    >
+                        Change Password
+                    </SubmitButton>
+                </Form>
+            </FormContainer>
         </>
     );
 };
