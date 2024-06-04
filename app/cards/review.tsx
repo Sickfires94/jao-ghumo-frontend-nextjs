@@ -19,16 +19,16 @@ const ReviewCard = async ({ review }: { review: review }) => {
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card>
-                <CardContent> 
-                    <Typography variant="h5" component="div">
+                <CardContent>
+                    <Typography variant="h6" component="div">
                         {owner.email}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         Rating: {review.rating.toString()}
-                    </Typography> 
+                    </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {review.description}
-                    </Typography> 
+                    </Typography>
                     <Typography variant="body2" color="text.secondary">
                         Posted: {new Date(review.creation_time).toLocaleString()}
                     </Typography>

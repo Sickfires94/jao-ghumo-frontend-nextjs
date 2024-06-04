@@ -44,10 +44,14 @@ export default function ButtonAppBar() {
             <AppBar position="static">
                 <Toolbar>
                     <Box display="flex" alignItems="center" sx={{ mr: 2 }}>
-                        <Image src={logo} alt='/' width={50} height={100} style={{ marginRight: "10px" }} />
-                        <Typography variant="h6" component="div">
-                            <strong>JAOGHUMO</strong>
-                        </Typography>
+                        <Link href="/">
+                            <Image src={logo} alt='/' width={50} height={100} style={{ marginRight: "10px" }} />
+                        </Link>
+                        <Link href="/">
+                            <Typography variant="h6" component="div">
+                                <strong>JAOGHUMO</strong>
+                            </Typography>
+                        </Link>
                     </Box>
 
                     <Box sx={{ flexGrow: 1 }} justifyContent="center" display="flex">
@@ -109,8 +113,8 @@ export default function ButtonAppBar() {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>{`${user?.firstname} ${user?.lastname}`}</MenuItem>
-                                <MenuItem onClick={handleClose}>{user?.role}</MenuItem>
+                                <MenuItem>{`${user?.firstname} ${user?.lastname}`}</MenuItem>
+                                <MenuItem>{user?.role}</MenuItem>
                                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
                             </Menu>
                         </div>
