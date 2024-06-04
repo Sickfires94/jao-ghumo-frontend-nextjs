@@ -1,7 +1,8 @@
 "use client"
 
 import React from 'react';
-import { Card, CardContent, Typography, Grid } from '@mui/material';
+import { Card, CardContent, Typography, Grid, CardMedia } from '@mui/material';
+import plane from '../img/plane.webp'
 
 interface FlightCardProps {
     flight: {
@@ -9,8 +10,8 @@ interface FlightCardProps {
         plane_id: string;
         departure_airport: string;
         arrival_airport: string;
-        Departure_time: string;
-        Arrival_time: string;
+        departure_time: string;
+        arrival_time: string;
         seats_total: number;
         seats_booked: number;
         ticket_price: number;
@@ -21,18 +22,13 @@ const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card>
+                <CardMedia component='img' image={plane.src} height="194"/>
                 <CardContent>
-                    <Typography variant="h5" component="div">
-                        {flight.flight_id}
+                    <Typography variant="body2" color="text.secondary">
+                        Departure: {flight.departure_airport} at {new Date(flight.departure_time).toLocaleString()}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Plane ID: {flight.plane_id}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        Departure: {flight.departure_airport} at {new Date(flight.Departure_time).toLocaleString()}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        Arrival: {flight.arrival_airport} at {new Date(flight.Arrival_time).toLocaleString()}
+                        Arrival: {flight.arrival_airport} at {new Date(flight.arrival_time).toLocaleString()}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         Seats Total: {flight.seats_total}
@@ -42,6 +38,12 @@ const FlightCard: React.FC<FlightCardProps> = ({ flight }) => {
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         Ticket Price: ${flight.ticket_price}
+                    </Typography>
+                    <Typography variant="body2" component="div">
+                        {flight.flight_id}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        Plane ID: {flight.plane_id}
                     </Typography>
                 </CardContent>
             </Card>
