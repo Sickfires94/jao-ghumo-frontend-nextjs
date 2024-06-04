@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -44,39 +44,102 @@ export default function ButtonAppBar() {
             <AppBar position="static">
                 <Toolbar>
                     <Box display="flex" alignItems="center" sx={{ mr: 2 }}>
-                        <Link href="/">
-                            <Image src={logo} alt='/' width={50} height={100} style={{ marginRight: "10px" }} />
-                        </Link>
-                        <Link href="/">
-                            <Typography variant="h6" component="div">
-                                <strong>JAOGHUMO</strong>
-                            </Typography>
-                        </Link>
+                        <Image src={logo} alt='/' width={50} height={100} style={{ marginRight: "10px" }} />
+                        <Typography variant="h6" component="div">
+                            <strong>JAOGHUMO</strong>
+                        </Typography>
                     </Box>
 
                     <Box sx={{ flexGrow: 1 }} justifyContent="center" display="flex">
-                        {['Airports', 'Trips', 'Review'].map((text) => (
-                            <Typography
-                                key={text}
-                                component="a"
-                                href="#"
-                                variant="h6"
-                                sx={{
-                                    mx: 3,
-                                    padding: '8px 16px',
-                                    borderRadius: '4px',
-                                    transition: 'box-shadow 0.3s ease-in-out',
-                                    '&:hover': {
-                                        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
-                                        backgroundColor: 'rgba(255, 255, 255, 0.1)', // Light background color on hover
-                                    },
-                                    textDecoration: 'none',
-                                    color: 'inherit',
-                                }}
-                            >
-                                {text}
-                            </Typography>
-                        ))}
+                        {user?.role === 'owner' ? (
+                            <>
+                                <Link href="/owned" passHref>
+                                    <Typography
+                                        component="a"
+                                        variant="h6"
+                                        sx={{
+                                            mx: 3,
+                                            padding: '8px 16px',
+                                            borderRadius: '4px',
+                                            transition: 'box-shadow 0.3s ease-in-out',
+                                            '&:hover': {
+                                                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                                                backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+                                            },
+                                            textDecoration: 'none',
+                                            color: 'inherit',
+                                        }}
+                                    >
+                                        Owned
+                                    </Typography>
+                                </Link>
+                                <Link href="/create" passHref>
+                                    <Typography
+                                        component="a"
+                                        variant="h6"
+                                        sx={{
+                                            mx: 3,
+                                            padding: '8px 16px',
+                                            borderRadius: '4px',
+                                            transition: 'box-shadow 0.3s ease-in-out',
+                                            '&:hover': {
+                                                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                                                backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+                                            },
+                                            textDecoration: 'none',
+                                            color: 'inherit',
+                                        }}
+                                    >
+                                        Create
+                                    </Typography>
+                                </Link>
+                                <Link href="/" passHref>
+                                    <Typography
+                                        component="a"
+                                        variant="h6"
+                                        sx={{
+                                            mx: 3,
+                                            padding: '8px 16px',
+                                            borderRadius: '4px',
+                                            transition: 'box-shadow 0.3s ease-in-out',
+                                            '&:hover': {
+                                                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                                                backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+                                            },
+                                            textDecoration: 'none',
+                                            color: 'inherit',
+                                        }}
+                                    >
+                                        Search
+                                    </Typography>
+                                </Link>
+                            </>
+                        ) : (
+                            <>
+                                {['Airports', 'Trips', 'Review'].map((text) => (
+                                    <Typography
+                                        key={text}
+                                        component="a"
+                                        href="#"
+                                        variant="h6"
+                                        sx={{
+                                            mx: 3,
+                                            padding: '8px 16px',
+                                            borderRadius: '4px',
+                                            transition: 'box-shadow 0.3s ease-in-out',
+                                            '&:hover': {
+                                                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                                                backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+                                            },
+                                            textDecoration: 'none',
+                                            color: 'inherit',
+                                        }}
+                                    >
+                                        {text}
+                                    </Typography>
+                                ))}
+                            </>
+                        )}
                     </Box>
 
                     {!isAuthenticated ? (
@@ -113,8 +176,11 @@ export default function ButtonAppBar() {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem>{`${user?.firstname} ${user?.lastname}`}</MenuItem>
-                                <MenuItem>{user?.role}</MenuItem>
+                                <MenuItem onClick={handleClose}>{`${user?.firstname} ${user?.lastname}`}</MenuItem>
+                                <MenuItem onClick={handleClose}>{user?.role}</MenuItem>
+                                <Link href="/profile" passHref>
+                                    <MenuItem onClick={handleClose}>View Profile</MenuItem>
+                                </Link>
                                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
                             </Menu>
                         </div>

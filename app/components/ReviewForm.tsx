@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import router from 'next/router';
 import React, { FormEvent, useState } from 'react'
@@ -17,17 +17,18 @@ const ReviewForm = ({_id} : {_id: string}) => {
 
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     
+    console.log("logged in: " + isAuthenticated)
+    
+    // const token = getCookie("token")
+    // console.log("token = " + token)
+
     if (!isAuthenticated){
         return loginCard();
     }
-
-    const token = getCookie("token")
-
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        console.log("token: " + token);
-
+      event.preventDefault()
+        // console.log("token: " + token);
+        const token = ""
         try {
             const response = await fetch('http://localhost:3000/reviews/post', {
                 method: 'POST',
@@ -55,50 +56,53 @@ const ReviewForm = ({_id} : {_id: string}) => {
 
 
     return (
-        <div> <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              name="rating"
-              required
-              fullWidth
-              type="number"
-              InputProps={{ inputProps: { min: 0, max: 5 } }}
-              id="rating"
-              label="Rating"
-              autoFocus
-              onChange={(e) => setRating(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              name="description"
-              required
-              fullWidth
-              id="description"
-              label="Description"
-              autoFocus
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Post
-        </Button>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <Grid container justifyContent="flex-end">
-          <Grid item>
-            <MuiLink href="/signup" variant="body2">
-              Don't have an account? Sign in
-            </MuiLink>
-          </Grid>
-        </Grid>
-      </Box></div>
+      <div>
+        Hello
+      </div>
+      //   <div> <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      //   <Grid container spacing={2}>
+      //     <Grid item xs={12} sm={6}>
+      //       <TextField
+      //         name="rating"
+      //         required
+      //         fullWidth
+      //         type="number"
+      //         InputProps={{ inputProps: { min: 0, max: 5 } }}
+      //         id="rating"
+      //         label="Rating"
+      //         autoFocus
+      //         onChange={(e) => setRating(e.target.value)}
+      //       />
+      //     </Grid>
+      //     <Grid item xs={12} sm={6}>
+      //       <TextField
+      //         name="description"
+      //         required
+      //         fullWidth
+      //         id="description"
+      //         label="Description"
+      //         autoFocus
+      //         onChange={(e) => setDescription(e.target.value)}
+      //       />
+      //     </Grid>
+      //   </Grid>
+      //   <Button
+      //     type="submit"
+      //     fullWidth
+      //     variant="contained"
+      //     sx={{ mt: 3, mb: 2 }}
+      //   >
+      //     Post
+      //   </Button>
+      //   {errorMessage && <p className="error-message">{errorMessage}</p>}
+      //   <Grid container justifyContent="flex-end">
+      //     <Grid item>
+      //       <MuiLink href="/signup" variant="body2">
+      //         Don't have an account? Sign in
+      //       </MuiLink>
+      //     </Grid>
+      //   </Grid>
+      // </Box></div>
     )
 }
 

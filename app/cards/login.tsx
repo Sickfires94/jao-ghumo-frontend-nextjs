@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import { Card, CardContent, Typography, Grid, ownerDocument, Button } from '@mui/material';
 import router from 'next/router';
