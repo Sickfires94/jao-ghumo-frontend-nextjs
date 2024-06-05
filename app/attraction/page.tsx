@@ -78,9 +78,13 @@ const AttractionProfile: React.FC = () => {
 
     const handleEditSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        const token = getCookie('token');
+
         fetch('http://localhost:3000/attractions/update', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+             },
             body: JSON.stringify(editData)
         })
         .then(res => {
@@ -97,7 +101,13 @@ const AttractionProfile: React.FC = () => {
         })
         .catch(error => console.error('Error:', error));
     };
-
+    const handleSaveChanges = () => {
+        // Perform your save changes logic here
+        console.log("Changes saved");
+        
+        // Refresh the page
+        window.location.reload();
+      };
     return (
         <div>
             <Navbar />
@@ -193,12 +203,13 @@ const AttractionProfile: React.FC = () => {
                             fullWidth
                         />
 
-                        <Button type="submit" variant="contained" color="primary">
+                        <Button type="submit" variant="contained" color="primary" onClick={handleSaveChanges} >
                             Save Changes
                         </Button>
                     </form>
                 </div>
             ) : (
+        
                 <div>
                     <div>
                         {attraction.reviews.map((review) => (

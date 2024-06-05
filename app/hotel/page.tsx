@@ -59,9 +59,13 @@ const HotelProfile: React.FC = () => {
 
     const handleEditSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const token = getCookie('token');
+
         const res = await fetch('http://localhost:3000/hotels/update', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' ,
+            'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify(editData)
         });
 
@@ -73,7 +77,13 @@ const HotelProfile: React.FC = () => {
             alert('Failed to update hotel information');
         }
     };
-
+    const handleSaveChanges = () => {
+        // Perform your save changes logic here
+        console.log("Changes saved");
+        
+        // Refresh the page
+        window.location.reload();
+      };
     return (
         <div>
             <Navbar />
@@ -157,7 +167,8 @@ const HotelProfile: React.FC = () => {
                             onChange={handleEditChange}
                             fullWidth
                         />
-                        <Button type="submit" variant="contained" color="primary">
+                        <Button type="submit" variant="contained" color="primary" onClick={handleSaveChanges}
+>
                             Save Changes
                         </Button>
                     </form>
