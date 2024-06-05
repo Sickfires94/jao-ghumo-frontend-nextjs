@@ -99,7 +99,7 @@ export default function ButtonAppBar() {
                                         Create
                                     </Typography>
                                 </Link>
-                                <Link href="/" passHref>
+                                <Link href="/booked" passHref>
                                     <Typography
                                         component="a"
                                         variant="h6"
@@ -116,7 +116,7 @@ export default function ButtonAppBar() {
                                             color: 'inherit',
                                         }}
                                     >
-                                        Search
+                                        Booked
                                     </Typography>
                                 </Link>
                             </>
@@ -182,11 +182,11 @@ export default function ButtonAppBar() {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>{`${user?.firstname} ${user?.lastname}`}</MenuItem>
-                                <MenuItem onClick={handleClose}>{user?.role}</MenuItem>
                                 <Link href="/profile" passHref>
-                                    <MenuItem onClick={handleClose}>View Profile</MenuItem>
+                                <MenuItem onClick={handleClose}>{`${user?.firstname} ${user?.lastname}`}</MenuItem>
                                 </Link>
+                                <MenuItem onClick={handleClose}>{user?.role}</MenuItem>
+
                                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
                             </Menu>
                         </div>

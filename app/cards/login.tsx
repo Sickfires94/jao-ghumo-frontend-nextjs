@@ -10,7 +10,7 @@ const onSubmit = () => {
     router.push("/login")
 }
 
-const loginCard = async () => {
+const loginCard =  () => {
     return (
         <Grid sx={{ maxWidth: 300, marginTop: "1rem"}}>
             <Card>
