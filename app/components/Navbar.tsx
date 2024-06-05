@@ -122,11 +122,9 @@ export default function ButtonAppBar() {
                             </>
                         ) :  (
                             <>
-                                {['Bookings', 'Trips', 'Review'].map((text) => (
+                                <Link href="/booked" passHref>
                                     <Typography
-                                        key={text}
                                         component="a"
-                                        href="#"
                                         variant="h6"
                                         sx={{
                                             mx: 3,
@@ -141,9 +139,9 @@ export default function ButtonAppBar() {
                                             color: 'inherit',
                                         }}
                                     >
-                                        {text}
+                                        Booked
                                     </Typography>
-                                ))}
+                                </Link>
                             </>
                         )}
                     </Box>

@@ -10,12 +10,12 @@ const onSubmit = () => {
     router.push("/login")
 }
 
-const loginCard =  () => {
+const loginCard =  (prompt : string) => {
     return (
         <Grid sx={{ maxWidth: 300, marginTop: "1rem"}}>
             <Card>
                 <CardContent> 
-                    <Link href={"/login"}>Login to Leave a Review</Link>
+                    <Link href={"/login"}>Login to {prompt}</Link>
                 </CardContent>
             </Card>
         </Grid>

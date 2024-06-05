@@ -124,10 +124,10 @@ const Homepage = () => {
         <div style={{ backgroundImage: `url(${getBackgroundImage})`, backgroundSize: 'cover' }}>
             <div className='header my-4'>{headerText}</div>
             <div className='items'>
-                <div className={`item mx-4 ${activeItem === 'all' ? 'active' : ''}`} onClick={handleHeaderText('Where to?', 'all')}>
+                {/* <div className={`item mx-4 ${activeItem === 'all' ? 'active' : ''}`} onClick={handleHeaderText('Where to?', 'all')}>
                     <FontAwesomeIcon icon={faHouse} className="mx-2" />
                     Search All
-                </div>
+                </div> */}
                 <div className={`item mx-4 ${activeItem === 'hotels' ? 'active' : ''}`} onClick={handleHeaderText('Stay somewhere great', 'hotels')}>
                     <FontAwesomeIcon icon={faHotel} className="mx-2" />
                     Hotels
@@ -146,7 +146,7 @@ const Homepage = () => {
                 </div>
             </div>
             <div className='search-bar'>
-                {activeItem === 'all' && (
+                {/* {activeItem === 'all' && (
                     <div>
                         <input
                             type="text"
@@ -159,7 +159,7 @@ const Homepage = () => {
                             Search
                         </button>
                     </div>
-                )}
+                )} */}
                 {activeItem === 'hotels' && (
                     <div>
                         <input

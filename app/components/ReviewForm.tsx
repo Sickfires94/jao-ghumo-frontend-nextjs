@@ -22,7 +22,7 @@ const ReviewForm = ({_id} : {_id: string}) => {
     console.log("logged in: " + isAuthenticated)
     
     if (!isAuthenticated){
-        return loginCard();
+        return loginCard("Leave a Review");
     }
 
     const token = getCookie("token")
