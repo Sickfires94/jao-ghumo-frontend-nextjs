@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
-import { Typography, TextField, Button } from '@mui/material';
+import { Typography, TextField, Button, Box } from '@mui/material';
 import ReviewCard from '../cards/review';
 import { useSearchParams } from 'next/navigation';
 import ReviewForm from '../components/ReviewForm';
@@ -108,94 +108,83 @@ const AttractionProfile: React.FC = () => {
                 <div>
                     <Typography variant="h5">Edit Attraction Information</Typography>
                     <form onSubmit={handleEditSubmit}>
-                        <TextField
-                            name="name"
-                            label="Name"
-                            value={editData?.name}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="description"
-                            label="Description"
-                            value={editData?.description}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="features"
-                            label="Features"
-                            value={editData?.features}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="timeOpen"
-                            label="Opening Time"
-                            value={editData?.timeOpen}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="priceRange"
-                            label="Price Range"
-                            value={editData?.priceRange}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="website"
-                            label="Website"
-                            value={editData?.website}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="phone"
-                            label="Phone Number"
-                            value={editData?.phone}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="address"
-                            label="Address"
-                            value={editData?.address}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="country"
-                            label="Country"
-                            value={editData?.country}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="state"
-                            label="State"
-                            value={editData?.state}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="city"
-                            label="City"
-                            value={editData?.city}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
-                            name="type"
-                            label="Type"
-                            value={editData?.type}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-
-                        <Button type="submit" variant="contained" color="primary">
-                            Save Changes
-                        </Button>
+                    <Box display="flex" flexDirection="column" gap={2} maxWidth={345}>
+                            <TextField
+                                name="name"
+                                label="Name"
+                                value={editData?.name}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="description"
+                                label="Description"
+                                value={editData?.description}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="features"
+                                label="Features"
+                                value={editData?.features}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="timeOpen"
+                                label="Opening Time"
+                                value={editData?.timeOpen}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="priceRange"
+                                label="Price Range"
+                                value={editData?.priceRange}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="website"
+                                label="Website"
+                                value={editData?.website}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="phone"
+                                label="Phone Number"
+                                value={editData?.phone}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="address"
+                                label="Address"
+                                value={editData?.address}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="country"
+                                label="Country"
+                                value={editData?.country}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="state"
+                                label="State"
+                                value={editData?.state}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="city"
+                                label="City"
+                                value={editData?.city}
+                                onChange={handleEditChange}
+                            />
+                            <TextField
+                                name="type"
+                                label="Type"
+                                value={editData?.type}
+                                onChange={handleEditChange}
+                            />
+                            <Button type="submit" variant="contained" color="primary">
+                                Save Changes
+                            </Button>
+                        </Box>
                     </form>
                 </div>
             ) : (

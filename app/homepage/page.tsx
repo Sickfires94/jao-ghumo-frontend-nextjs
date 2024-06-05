@@ -2,17 +2,17 @@
 
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlane, faHouse, faHotel, faCalendarDays, faUtensils, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import './homepage.css';
+import { faPlane, faHouse, faHotel, faCalendarDays, faUtensils } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import FlightCard from '../cards/flight';
 import HotelCard from '../cards/hotel';
 import { Grid } from '@mui/material';
 import AttractionCard from '../cards/attraction';
-import hotelBg from '../img/hotel-bg.jpeg'
-import attractionBg from '../img/attraction-bg.jpg'
-import flightBg from '../img/flight-bg.jpg'
-import restaurantBg from '../img/restaurant-bg.jpg'
+import hotelBg from '../img/hotel.jpg';
+import attractionBg from '../img/attraction-bg.jpg';
+import flightBg from '../img/flight-bg.jpg';
+import restaurantBg from '../img/restaurant-bg.jpg';
+import './homepage.css';
 
 const Homepage = () => {
     const [headerText, setHeaderText] = useState<string>('Where to?');
@@ -21,7 +21,7 @@ const Homepage = () => {
 
     const [searchAll, setSearchAll] = useState<string>('');
     const [hotels, setHotels] = useState({ name: '', checkIn: '', checkOut: '' });
-    const [flights, setFlights] = useState({ from: '', to: ''});
+    const [flights, setFlights] = useState({ from: '', to: '' });
     const [activities, setActivities] = useState({ location: '', priceRange: '', rating_min: '' });
     const [restaurants, setRestaurants] = useState({ location: '', priceRange: '', rating_min: '' });
 
@@ -48,7 +48,6 @@ const Homepage = () => {
             console.error('Error fetching hotel search results:', error);
         }
     };
-    
 
     const searchFlights = async () => {
         try {
@@ -57,13 +56,11 @@ const Homepage = () => {
                 arrival_airport: flights.to,
             };
             const response = await axios.post('http://localhost:3000/flights/search/route', body);
-                
             setSearchResults(response.data);
         } catch (error) {
             console.error('Error fetching flight search results:', error);
         }
     };
-    
 
     const searchActivities = async () => {
         try {
@@ -93,9 +90,7 @@ const Homepage = () => {
             console.error('Error fetching restaurant search results:', error);
         }
     };
-    
 
-    
     const handleSearch = async () => {
         if (activeItem === 'hotels') {
             await searchHotels();
@@ -108,26 +103,29 @@ const Homepage = () => {
         }
     };
 
-    const getBackgroundImage = async () => {
-        if (activeItem === 'hotels') {
-            return hotelBg.src;
-        } else if (activeItem === 'flights') {
-            return flightBg.src;
-        } else if (activeItem === 'activities') {
-            return attractionBg.src;
-        } else if (activeItem === 'restaurants') {
-            return restaurantBg.src;
-        }
-    };
+    // const getBackgroundImage = () => {
+    //     if (activeItem === 'hotels') {
+    //         return hotelBg.src;
+    //     } else if (activeItem === 'flights') {
+    //         return flightBg.src;
+    //     } else if (activeItem === 'activities') {
+    //         return attractionBg.src;
+    //     } else if (activeItem === 'restaurants') {
+    //         return restaurantBg.src;
+    //     } else {
+    //         return '';
+    //     }
+    // };
 
     return (
-        <div style={{ backgroundImage: `url(${getBackgroundImage})`, backgroundSize: 'cover' }}>
-            <div className='header my-4'>{headerText}</div>
+        // <div style={{ backgroundImage: `url(${getBackgroundImage()})`, backgroundSize: 'cover', height: '30rem', backgroundPosition: 'center'}}>
+        <div>
+        <div className='header my-4'>{headerText}</div>
             <div className='items'>
-                <div className={`item mx-4 ${activeItem === 'all' ? 'active' : ''}`} onClick={handleHeaderText('Where to?', 'all')}>
+                {/* <div className={`item mx-4 ${activeItem === 'all' ? 'active' : ''}`} onClick={handleHeaderText('Where to?', 'all')}>
                     <FontAwesomeIcon icon={faHouse} className="mx-2" />
                     Search All
-                </div>
+                </div> */}
                 <div className={`item mx-4 ${activeItem === 'hotels' ? 'active' : ''}`} onClick={handleHeaderText('Stay somewhere great', 'hotels')}>
                     <FontAwesomeIcon icon={faHotel} className="mx-2" />
                     Hotels
@@ -146,7 +144,7 @@ const Homepage = () => {
                 </div>
             </div>
             <div className='search-bar'>
-                {activeItem === 'all' && (
+                {/* {activeItem === 'all' && (
                     <div>
                         <input
                             type="text"
@@ -159,7 +157,7 @@ const Homepage = () => {
                             Search
                         </button>
                     </div>
-                )}
+                )} */}
                 {activeItem === 'hotels' && (
                     <div>
                         <input
@@ -199,7 +197,6 @@ const Homepage = () => {
                             value={flights.to}
                             onChange={(e) => setFlights({ ...flights, to: e.target.value })}
                         />
-                        
                         <button className='search-button' onClick={handleSearch}>
                             Search
                         </button>
@@ -235,7 +232,6 @@ const Homepage = () => {
                 )}
                 {activeItem === 'restaurants' && (
                     <div>
-                        
                         <input
                             type="text"
                             className="search-input"
@@ -264,14 +260,14 @@ const Homepage = () => {
                 )}
             </div>
             <div className="search-results">
-            <Grid container spacing={2}>
+                <Grid container spacing={2}>
                     {searchResults.map((result, index) => (
                         activeItem === 'flights' ? (
                             <FlightCard key={index} flight={result} />
                         ) : activeItem === 'hotels' ? (
                             <HotelCard key={index} hotel={result} />
                         ) : (activeItem === 'activities' && (result.type === 'amusement park' || result.type === 'attraction') || activeItem === 'restaurants' && result.type === 'restaurant') ? (
-                            <AttractionCard key={index} attraction={result}/>
+                            <AttractionCard key={index} attraction={result} />
                         ) : null
                     ))}
                 </Grid>
