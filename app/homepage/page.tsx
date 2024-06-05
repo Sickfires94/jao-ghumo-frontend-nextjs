@@ -103,23 +103,24 @@ const Homepage = () => {
         }
     };
 
-    const getBackgroundImage = () => {
-        if (activeItem === 'hotels') {
-            return hotelBg.src;
-        } else if (activeItem === 'flights') {
-            return flightBg.src;
-        } else if (activeItem === 'activities') {
-            return attractionBg.src;
-        } else if (activeItem === 'restaurants') {
-            return restaurantBg.src;
-        } else {
-            return '';
-        }
-    };
+    // const getBackgroundImage = () => {
+    //     if (activeItem === 'hotels') {
+    //         return hotelBg.src;
+    //     } else if (activeItem === 'flights') {
+    //         return flightBg.src;
+    //     } else if (activeItem === 'activities') {
+    //         return attractionBg.src;
+    //     } else if (activeItem === 'restaurants') {
+    //         return restaurantBg.src;
+    //     } else {
+    //         return '';
+    //     }
+    // };
 
     return (
-        <div style={{ backgroundImage: `url(${getBackgroundImage()})`, backgroundSize: 'cover', height: '30rem', backgroundPosition: 'center'}}>
-            <div className='header my-4'>{headerText}</div>
+        // <div style={{ backgroundImage: `url(${getBackgroundImage()})`, backgroundSize: 'cover', height: '30rem', backgroundPosition: 'center'}}>
+        <div>
+        <div className='header my-4'>{headerText}</div>
             <div className='items'>
                 {/* <div className={`item mx-4 ${activeItem === 'all' ? 'active' : ''}`} onClick={handleHeaderText('Where to?', 'all')}>
                     <FontAwesomeIcon icon={faHouse} className="mx-2" />

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
-import { Typography, TextField, Button } from '@mui/material';
+import { Typography, TextField, Button, Box } from '@mui/material';
 import ReviewCard from '../cards/review';
 import { useSearchParams } from 'next/navigation';
 import ReviewForm from '../components/ReviewForm';
@@ -84,6 +84,7 @@ const HotelProfile: React.FC = () => {
                 <div>
                     <Typography variant="h5">Edit Hotel Information</Typography>
                     <form onSubmit={handleEditSubmit}>
+                    <Box display="flex" flexDirection="column" gap={2} maxWidth={345}>
                         <TextField
                             name="hotel_name"
                             label="Hotel Name"
@@ -160,6 +161,7 @@ const HotelProfile: React.FC = () => {
                         <Button type="submit" variant="contained" color="primary">
                             Save Changes
                         </Button>
+                        </Box>
                     </form>
                 </div>
             ) : (
