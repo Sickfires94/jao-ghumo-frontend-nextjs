@@ -124,14 +124,6 @@ const HotelProfile: React.FC = () => {
                             fullWidth
                         />
                         <TextField
-                            name="rating"
-                            label="Rating"
-                            type="number"
-                            value={editData?.rating}
-                            onChange={handleEditChange}
-                            fullWidth
-                        />
-                        <TextField
                             name="price"
                             label="Price"
                             type="number"
