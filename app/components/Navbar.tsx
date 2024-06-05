@@ -17,6 +17,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { setCookie } from 'typescript-cookie';
 
 export default function ButtonAppBar() {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
@@ -36,6 +37,7 @@ export default function ButtonAppBar() {
     const handleLogout = () => {
         dispatch(logout());
         dispatch(clearUser());
+        setCookie("token", "");
         window.location.reload(); // Refresh the page
     };
 
@@ -118,7 +120,7 @@ export default function ButtonAppBar() {
                                     </Typography>
                                 </Link>
                             </>
-                        ) : (
+                        ) :  (
                             <>
                                 {['Bookings', 'Trips', 'Review'].map((text) => (
                                     <Typography

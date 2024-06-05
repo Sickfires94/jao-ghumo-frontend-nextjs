@@ -36,8 +36,10 @@ const Create = () => {
                 }
             });
             setCreateResults([response.data]);
+            alert("Hotel Created Successfully")
         } catch (error) {
             console.error('Error creating hotel:', error);
+            alert("Failed to create hotel. Please try again.")
         }
     };
     
@@ -54,8 +56,10 @@ const Create = () => {
                 }
             });
             setCreateResults([response.data]);
+            alert("Flight Created Successfully")
         } catch (error) {
             console.error('Error creating flight:', error);
+            alert("Failed to create flight. Please try again.")
         }
     };
     
@@ -72,8 +76,13 @@ const Create = () => {
                 }
             });
             setCreateResults([response.data]);
+            alert("Activity Created Successfully")
+
+
         } catch (error) {
             console.error('Error creating activity:', error);
+            alert("Failed to create activity. Please try again.")
+
         }
     };
 
@@ -89,8 +98,12 @@ const createAirport = async () => {
             }
         });
         setCreateResults([response.data]);
+        alert("Airport Created Successfully")
+
     } catch (error) {
         console.error('Error creating airport:', error);
+        alert("Failed to create airport. Please try again.")
+
     }
 };
 
@@ -314,13 +327,6 @@ const createAirport = async () => {
                             placeholder="Website"
                             value={activities.website}
                             onChange={(e) => setActivities({ ...activities, website: e.target.value })}
-                        />
-                        <input
-                            type="number"
-                            className="creation-input"
-                            placeholder="Position"
-                            value={activities.position}
-                            onChange={(e) => setActivities({ ...activities, position: e.target.value })}
                         />
                         <input
                             type="text"

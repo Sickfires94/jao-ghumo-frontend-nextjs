@@ -1,13 +1,15 @@
 "use client";
 
 import React from 'react';
-import { Card, CardContent, Typography, Grid, CardMedia } from '@mui/material';
+import { Card, CardContent, Typography, Grid, CardMedia, Button } from '@mui/material';
 import attractions from '../img/attraction.jpeg';
 import restaurants from '../img/restaurant.jpg';
 import amusementPark from '../img/amusement park.jpg'
+import { useRouter } from 'next/navigation'
 
 interface AttractionCardProps {
     attraction: {
+        _id: string;
         name?: string;
         city?: string;
         state?: string;
@@ -27,6 +29,10 @@ interface AttractionCardProps {
 }
 
 const AttractionCard: React.FC<AttractionCardProps> = ({ attraction }) => {
+    const router = useRouter()
+    const onClick = async () => {
+        router.push("/attraction?id=" + attraction._id);
+    }
     const imageSrc = attraction.type === 'restaurant' ? restaurants.src : attraction.type === 'amusement park' ? amusementPark.src : attractions.src;
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -63,6 +69,9 @@ const AttractionCard: React.FC<AttractionCardProps> = ({ attraction }) => {
                     <Typography variant="body2" color="text.secondary">
                         No. of Reviews: {attraction.numberOfReviews?.toString() || 'N/A'}
                     </Typography>
+                    <Button onClick={onClick}>
+                        Profile
+                    </Button>
                 </CardContent>
             </Card>
         </Grid>
