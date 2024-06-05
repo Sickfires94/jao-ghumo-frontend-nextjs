@@ -85,7 +85,12 @@ function Login() {
 
             console.log("token = " + getCookie("token"))
             // redirector();
-            router.push("../")
+            if(data.role === 'admin'){
+              router.push("../admin")
+            } else {
+              router.push("../")
+            }
+            // router.push("../")
             console.log("redirected");
             // ... (redirect or other actions)
 
