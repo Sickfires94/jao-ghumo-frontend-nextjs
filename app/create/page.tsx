@@ -329,13 +329,6 @@ const createAirport = async () => {
                             onChange={(e) => setActivities({ ...activities, website: e.target.value })}
                         />
                         <input
-                            type="number"
-                            className="creation-input"
-                            placeholder="Position"
-                            value={activities.position}
-                            onChange={(e) => setActivities({ ...activities, position: e.target.value })}
-                        />
-                        <input
                             type="text"
                             className="creation-input"
                             placeholder="Features"
